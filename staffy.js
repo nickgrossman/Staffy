@@ -123,8 +123,6 @@ function updateTime(e) {
       'success': updateTimeResponse
     });
   //}
-
-
 }
 
 function updateTimeResponse(data, textStatus, request) {
@@ -133,7 +131,7 @@ function updateTimeResponse(data, textStatus, request) {
   // for the given person/project/week
   // ex: 48
   
-  // tmp
+  // FIXME tmp stub data
   if (Staffy.hours == '') Staffy.hours = 0;
   data = parseInt(Staffy.hours) + 28;
   
@@ -151,12 +149,39 @@ function updateTimeResponse(data, textStatus, request) {
 function addPersonToProject(e) {
   if (this.value != '') {
   
-    var namesRow = $('table#weeks tbody tr:last');
-    var hoursRow = $('table#row-labels tbody tr:last');
-    var personId = this.value;
+    Staffy.activeWeeksRow = $('table#weeks tbody tr:last');
+    Staffy.activeLabelsRow = $('table#row-labels tbody tr:last');
+    Staffy.personId = this.value;
+    // Staffy.projectId is set in the template
+
+    $.ajax({
+      'url': './schedules/' + Staffy.personId,
+      'type': 'get', 
+      'data': {
+        'project_id': Staffy.projectId
+      },
+      'success': addPersonToProjectResponse,
+      'error': addPersonToProjectResponse /* tmp */
+    });
     
-    namesRow.clone().insertAfter(namesRow);
-    hoursRow.clone().insertAfter(hoursRow);
+    
   }
+}
+function addPersonToProjectResponse(data,textStatus) {
+  // AJAX Response when adding a new person to a project.
+  // this will expect back the HTML for a planning table row
+  // for the person requested
+  
+  //tmp: for now, we will just clone the bottom row
+  // when this is real, we'll insert HTML retreived from the server
+  Staffy.activeWeeksRow.clone().insertAfter(Staffy.activeWeeksRow);
+
+  // update activeLabelsRow w/ name & info of person selected
+  var newLabelsRow = Staffy.activeLabelsRow.clone().insertAfter(Staffy.activeLabelsRow);
+  var activeLabel = $(newLabelsRow.find('a')[0]);
+  activeLabel.removeClass('person-dev').removeClass('person-dzn').removeClass('person-pm');
+  activeLabel.empty().prepend(Staffy.people[Staffy.personId].person_name);
+  activeLabel.addClass('person-' + Staffy.people[Staffy.personId].person_role);
+
 }
 

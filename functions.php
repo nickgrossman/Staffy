@@ -103,7 +103,7 @@ function display_planning_rows($people) {
   $mondays = setup_mondays();	
   
   foreach ($people as $key=>$person) :
-  
+  if ($key < 4) : //tmp - just show a few people per project for testing
   ?>
     <tr id="person-<?php echo $person['person_id'] ?>" staffy:person_id="<?php echo $person['person_id'] ?>">
       <?php foreach ($mondays as $key => $monday) : ?>
@@ -125,6 +125,7 @@ function display_planning_rows($people) {
       <th style="width: 40px"></th>
     </tr>
     <?php 
+    endif;
     endforeach;
 }
 

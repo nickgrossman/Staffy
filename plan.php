@@ -1,8 +1,11 @@
 <?php 
 /* setup page and load header */
 require_once('header.php');
-require_once('plan.inc.php'); 
 ?>
+<script type="text/javascript">
+  // Store project ID for use in JS
+  Staffy.projectId = 1;
+</script>
 
 
 <div id="datepicker">
@@ -42,13 +45,15 @@ require_once('plan.inc.php');
 
 <table id="row-labels">
   <tbody>
-    <?php foreach ($people as $key=>$person) : ?>
+    <?php foreach ($people as $key=>$person) : 
+          if ($key < 4) : //tmp - just show a few people per project for testing
+    ?>
     <tr id="person-<?php echo $person['person_id'] ?>" staffy:person_id="<?php echo $person['person_id'] ?>">
       <th class="person-name">
         <?php the_person_link($person); ?>
       </th>
     </tr>
-    <?php endforeach; ?>
+    <?php endif; endforeach; ?>
   </tbody>
   <tfoot>
     <tr>

@@ -1,7 +1,6 @@
 <?php 
 /* setup page and load header */
 require_once('header.php');
-require_once('person.inc.php'); 
 ?>
 
 

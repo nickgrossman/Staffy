@@ -148,7 +148,7 @@ table#row-labels td {
   background: #000;
   border-color: #000;
   text-align: right;
-  padding: 6px 10px;
+  padding: 6px 10px 7px;
 }
 table#row-labels th,
 table#weeks td {
