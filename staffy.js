@@ -121,8 +121,8 @@ function updateTimeResponse(data, textStatus) {
 function addPersonToProject(e) {
   if (this.value != '') {
   
-    var namesRow = $('table#names tbody tr:last');
-    var hoursRow = $('table#hours tbody tr:last');
+    var namesRow = $('table#weeks tbody tr:last');
+    var hoursRow = $('table#row-labels tbody tr:last');
     var personId = this.value;
     
     namesRow.clone().insertAfter(namesRow);
