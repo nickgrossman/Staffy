@@ -100,45 +100,46 @@ function scrollToToday() {
 function updateTime(e) {
   // keeping these values in the Staffy global is a weird hack
   // but my JS is not slick enough to do otherwise
-  Staffy.containerCell = $(this).parent();
-  var personId = Staffy.containerCell[0].getAttribute('staffy:person_id'); 
-  var startDate = Staffy.containerCell[0].getAttribute('staffy:date');
-  var entryId = Staffy.containerCell[0].getAttribute('staffy:entry_id'); 
-  var projectId = Staffy.containerCell[0].getAttribute('staffy:project_id');
-  var hours = this.value;
-  Staffy.cell = Staffy.containerCell;
+  Staffy.activeCell = $(this).parent();
+  Staffy.personId = Staffy.activeCell[0].getAttribute('staffy:person_id'); 
+  Staffy.startDate = Staffy.activeCell[0].getAttribute('staffy:date');
+  Staffy.entryId = Staffy.activeCell[0].getAttribute('staffy:entry_id'); 
+  Staffy.projectId = Staffy.activeCell[0].getAttribute('staffy:project_id');
+  Staffy.hours = this.value;
     
+  //if( ! Staffy.updateIsHappening) {
   // FIXME: wait after the first keyup, so as not to fire two requests
   // with double-digit numbers
-
-  if (!entryId){
-    //this is a new entry
-    $.post('./', 
-      {
-      'action': 'create', 
-      'person_id': personId,
-      'startdate': startDate,
-      'project_id': projectId,
-      'hours': hours
+    $.ajax({
+      'url': './',
+      'type': 'post', 
+      'data': {
+        'action': 'create', 
+        'person_id': Staffy.personId,
+        'startdate': Staffy.startDate,
+        'project_id': Staffy.projectId,
+        'hours': Staffy.hours
       },
-      updateTimeResponse);
-  } else {
-    // this is an update
-    $.post('./', 
-      {
-      'action': 'update', 
-      'entry_id': entryId,
-      'startdate': startDate,
-      'project_id': projectId,
-      'hours': hours
-      }, 
-      updateTimeResponse);
-  }
+      'success': updateTimeResponse
+    });
+  //}
+
 
 }
 
-function updateTimeResponse(data, textStatus) {
-  console.log(Staffy.containerCell);
+function updateTimeResponse(data, textStatus, request) {
+  // this AJAX callback expects:
+  // the total number of hours allocated
+  // for the given person/project/week
+  // ex: 48
+  
+  // tmp
+  if (Staffy.hours == '') Staffy.hours = 0;
+  data = parseInt(Staffy.hours) + 28;
+  
+  var target = $(Staffy.activeCell.children('.estimated-hours')[0]);
+  target.empty().prepend(data);
+
 }
 
 
