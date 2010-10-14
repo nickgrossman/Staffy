@@ -88,6 +88,15 @@ function the_person_link($person) {
 }
 
 #
+# Display project name (and link)
+#
+function the_project_link($project) {
+    $link = '<a class="project" href="project.php" target="_blank">'.$project['project_name'].'</a>';
+  
+  echo $link;
+}
+
+#
 # Print table rows for each project/person/week
 #
 function display_planning_rows($people) {
@@ -97,23 +106,20 @@ function display_planning_rows($people) {
   
   ?>
     <tr id="person-<?php echo $person['person_id'] ?>" staffy:person_id="<?php echo $person['person_id'] ?>">
-      <!--
-      <th class="person-name">
-        <?php the_person_link($person); ?>
-      </th>
-      -->
       <?php foreach ($mondays as $key => $monday) : ?>
         <td class="person-<?php echo $person['person_id']?> <?php echo week_class($monday) ?>" id="cell-<?php echo $person['person_id']?>-<?php echo $monday?>" staffy:person_id="<?php echo $person['person_id']?>" staffy:date="<?php echo $monday; ?>">
+        <?php if (strtotime(date('Y-m-d')) > strtotime($mondays[$key+1])) : ?>
+        <!-- this is a past week -->
+        <span class="actual-hours">32</span>
+        <span class="estimated-hours">28</span>
         
+        <?php else : ?>
+        <!-- this is a present or future week -->
         <input type="text" size="2" class="hours-input" />
-        <span class="overall-estimate">(28)</span>
+        <span class="estimated-hours">28</span>
+        <?php endif; ?>
+        
 
-          <div class="batch-dialog" style="display:none">
-            <a href="#" class="copy">cp</a>  
-            <a href="#" class="move">mv</a> 
-            <a href="#" class="delete">rm</a>              
-            <a href="#" class="cancel">x</a>
-          </div>
         </td>
       <?php endforeach; ?>
       <th style="width: 40px"></th>
@@ -122,4 +128,50 @@ function display_planning_rows($people) {
     endforeach;
 }
 
+#
+# Print table rows a given person's projects
+#
+function display_person_rows($projects) {
+  $mondays = setup_mondays();	
+  
+  foreach ($projects as $key=>$project) :
+  
+  ?>
+    <tr id="project-<?php echo $project['project_id'] ?>" staffy:project_id="<?php echo $project_id['project_id'] ?>">
+
+      <?php foreach ($mondays as $key => $monday) : ?>
+        <td class="project-<?php echo $project['project_id']?> <?php echo week_class($monday) ?>" id="cell-<?php echo $project['project_id']?>-<?php echo $monday?>" staffy:project_id="<?php echo $project['project_id']?>" staffy:date="<?php echo $monday; ?>">
+        
+        <?php if (strtotime(date('Y-m-d')) > strtotime($mondays[$key+1])) : ?>
+        <!-- this is a past week -->
+        <span class="rollup-hours">
+          <a href="" class="popup">28</a>
+        </span>
+        <?php else : ?>
+        <!-- this is a present or future week -->
+        <span class="rollup-hours">28</span>
+        <?php endif; ?>
+
+        </td>
+
+      <?php endforeach; ?>
+    </tr>
+    <?php endforeach; ?>
+  
+  <!-- summary row -->
+    <tr id="project-<?php echo $project['project_id'] ?>" staffy:project_id="<?php echo $project_id['project_id'] ?>">
+
+      <?php foreach ($mondays as $key => $monday) : ?>
+        <td class="project-<?php echo $project['project_id']?> <?php echo week_class($monday) ?> summary" id="cell-<?php echo $project['project_id']?>-<?php echo $monday?>" staffy:project_id="<?php echo $project['project_id']?>" staffy:date="<?php echo $monday; ?>">
+        
+        <strong>84</strong>              
+        </td>
+        
+
+      <?php endforeach; ?>
+    </tr>
+
+  
+<?php
+}
 ?>

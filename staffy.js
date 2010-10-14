@@ -27,11 +27,22 @@ Staffy.cell;
 */
 function applyBehaviors() {
 
-  $.localScroll.defaults.axis = 'x';
-  $.localScroll({
-    hash:'true'
+  $('.actual-hours').qtip({
+    content: 'These are my notes',
+    show: 'mouseover',
+    hide: 'mouseout',
+    position: {
+      corner:  {
+        target: 'topMiddle',
+        tooltip: 'bottomMiddle'
+      }
+    },
+    style: {
+        name: 'cream',
+        tip: 'bottomMiddle'
+      }
   });
-  
+      
   $('.hours-input').keyup(updateTime);
   
   $('#add-person-to-project').change(addPersonToProject);
@@ -42,6 +53,16 @@ function applyBehaviors() {
   });
 }
 
+function showNotesDialog(e) {
+  var link = $(this);
+  var id = 'note-' + this.getAttribute('staffy:person-week');
+  
+  var dialog = $('#'+id);
+  console.log('#'+id);
+  
+  $(dialog).dialog('open');
+  return false;
+}
 
 function getMondayAndScroll(dateString) {
   var mondayString; // what we want to find out
@@ -57,7 +78,13 @@ function getMondayAndScroll(dateString) {
   
   mondayString = $.datepicker.formatDate('yy-mm-dd', date);  
   
-  $.scrollTo('#' + mondayString);
+  $.scrollTo(
+    '#' + mondayString,
+    {
+      axis: 'x',
+      offset: -165
+    }
+  );
 }
 
 function scrollToToday() {
@@ -71,13 +98,15 @@ function scrollToToday() {
 #
 */
 function updateTime(e) {
-  var containerCell = $(this).parent();
-  var personId = containerCell[0].getAttribute('staffy:person_id'); 
-  var startDate = containerCell[0].getAttribute('staffy:date');
-  var entryId = containerCell[0].getAttribute('staffy:entry_id'); 
-  var projectId = containerCell[0].getAttribute('staffy:project_id');
+  // keeping these values in the Staffy global is a weird hack
+  // but my JS is not slick enough to do otherwise
+  Staffy.containerCell = $(this).parent();
+  var personId = Staffy.containerCell[0].getAttribute('staffy:person_id'); 
+  var startDate = Staffy.containerCell[0].getAttribute('staffy:date');
+  var entryId = Staffy.containerCell[0].getAttribute('staffy:entry_id'); 
+  var projectId = Staffy.containerCell[0].getAttribute('staffy:project_id');
   var hours = this.value;
-  Staffy.cell = containerCell;
+  Staffy.cell = Staffy.containerCell;
     
   // FIXME: wait after the first keyup, so as not to fire two requests
   // with double-digit numbers
@@ -109,7 +138,7 @@ function updateTime(e) {
 }
 
 function updateTimeResponse(data, textStatus) {
-
+  console.log(Staffy.containerCell);
 }
 
 

@@ -55,24 +55,14 @@ display: inline;
 ----------------*/
 #intro {
   position:fixed;
-  top: 45px;
+  top: 42px;
 }
 
-
-/* Projects Table 
------------------*/
-td.project-name {
-  text-align: right;
-/*  padding-left: 35px;*/
-  position: relative;
-  }
-td.project-name a,
-td.project-name a:hover {
-  background: lightblue;
-  display: block;
-  padding: 2px 5px;
-  color: #000;
-} 
+/*
+#
+# slidey table
+#
+*/
 thead th.currentweek {
  /*border-top: 2px solid orange;
  border-left: 2px solid orange;
@@ -90,45 +80,69 @@ tfoot th.currentweek {
  border-right: 2px solid orange;*/
  background: #EF9868;
 }
-.person {
-  margin: 2px;
-  background: green;
-  color: #fff;
-  cursor: pointer;
-}
-table .person {
+
+table#row-labels th a {
   font-weight: normal;
   padding: 6px;
   display: block;
   white-space: nowrap;
-}
-table a.person {
   color: #fff;
+  background: #444;
+  margin: 2px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+
 }
-.person-pm {
+table#row-labels th a.person-pm {
   background: red;
 }
-.person-dzn {
+table#row-labels th a.person-dzn {
   background: blue;
 }
-.person-dev {
+table#row-labels th a.person-dev {
   background: green;
 }
 
-/*
-#
-# slidey table
-#
-*/
 table#weeks {
-  margin-left: 175px;
-  margin-top: 110px;
+  margin-left: 165px;
+  margin-top: 65px;
+}
+table#row-labels {
+  position: fixed;
+  top: 108px;
+  left: 0;
+  width: 165px;
+}
+table#weeks th {
+  background: #333;
+  color: #ccc;
+  font-weight: normal;
+  line-height: 1.2em;
+}
+table#weeks th .year {
+  color: #555;
+  display: block;
+  width: 60px;
 }
 table#weeks th,
 table#weeks td {
   text-align: center;
   padding: 6px 10px;
 }
+.estimated-hours {
+  font-style: italic;
+  color: #777;
+}
+.actual-hours {
+  font-weight: bold;
+  cursor:pointer;
+}
+.notes {
+  display: none;
+}
+
+
 table#row-labels th,
 table#row-labels td {
   background: #000;
@@ -139,12 +153,15 @@ table#row-labels th,
 table#weeks td {
   height: 40px;
 }
-table#row-labels {
-  position: fixed;
-  top: 147px;
-  left: 10;
-  width: 165px;
+table#weeks td.summary {
+  height: auto;
 }
+th.past,
+td.past {
+  color: #444;
+  background: #ddd;
+}
+
 
 
 /* Utilities 

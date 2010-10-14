@@ -10,8 +10,8 @@ require_once('functions.php');
     <link type="text/css" href="jquery/css/smoothness/jquery-ui-1.7.1.custom.css" rel="stylesheet" />	
 		<script type="text/javascript" src="jquery/js/jquery-1.3.2.min.js"></script>
 		<script type="text/javascript" src="jquery/js/jquery-ui-1.7.1.custom.min.js"></script>
-    <script type="text/javascript" src="jquery/plugins/jquery.localscroll-min.js"></script>
     <script type="text/javascript" src="jquery/plugins/jquery.scrollTo-min.js"></script>
+    <script type="text/javascript" src="jquery/plugins/jquery.qtip-1.0.0-rc3.min.js"></script>
     <script type="text/javascript" src="staffy.js?version=a"></script>
     <link href="reset.css" rel="stylesheet" />
     <link href="staffy.css?version=a" rel="stylesheet" />
@@ -21,8 +21,8 @@ require_once('functions.php');
     <p>Hi, my name is Staffy.</p>
     <ul id="nav">
       <li><a href="./">Dashboard</a></li>
-      <li><a href="plan-ahead.php">Planning view</a></li>
-      <li><a href="#">Person view</a></li>
+      <li><a href="plan.php">Planning view</a></li>
+      <li><a href="person.php">Person view</a></li>
       <li><a href="#">Timesheet + priorities</a></li>
     </ul>
   </div>
