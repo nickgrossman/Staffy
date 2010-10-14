@@ -1,0 +1,33 @@
+STAFFY
+
+A simple application for managing project teams. 
+
+We plan to build the following views:
+
+Plan a project
+--------------
+Estimate how many people your project will need, and when
+ * Add people to a project
+ * Estimate how many hours (by week) will be needed for each person
+ * For past weeks, see how much people actually worked
+
+Timesheets & Priority setting
+-----------------------------
+Track what you're working on and communicate it to everyone.
+At the beginning of each week:
+ * For each project you work on, jot down the high level list of issues you'll tackle this week.  Also see the estimated # of hours that have been allocated for you by project
+ * See last week's priorities notes, and add comments on how that worked.
+ * Once info has been added, an email will be sent to the team
+
+Person view
+-----------
+For a given person, check out their current and estimated workload.
+ * list of projects, with hourly assignments by week
+ * for past weeks, see what notes were written
+ 
+Dashboard
+---------
+Overview of what everyone is working on.
+ * view of the current week
+ * by project / person - estimated hours plus self-written priorities
+
