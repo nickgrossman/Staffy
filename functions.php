@@ -144,12 +144,10 @@ function display_person_rows($projects) {
         
         <?php if (strtotime(date('Y-m-d')) > strtotime($mondays[$key+1])) : ?>
         <!-- this is a past week -->
-        <span class="rollup-hours">
-          <a href="" class="popup">28</a>
-        </span>
-        <?php else : ?>
+        <span class="actual-hours">32</span>
+        <span class="estimated-hours">28</span>        <?php else : ?>
         <!-- this is a present or future week -->
-        <span class="rollup-hours">28</span>
+        <span class="estimated-hours">28</span>
         <?php endif; ?>
 
         </td>
